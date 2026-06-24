@@ -5,3 +5,141 @@ vless://d6b49049-2f22-4f96-88de-70a56c9e6b3d@ananya.helpbot.click:443?flow=&type
 vmess://eyJzbmkiOiJyZW5kZXJlci1zdHJlYW0tMS00MTEubWlycmEubm93IiwiaG9zdCI6InJlbmRlcmVyLXN0cmVhbS0xLTQxMS5taXJyYS5ub3ciLCJhZGQiOiJyZW5kZXJlci1zdHJlYW0tMS00MTEubWlycmEubm93IiwicHMiOiLwn4ez8J+HsU5ldGhlcmxhbmRzIiwic2N5IjoiYXV0byIsInBvcnQiOiI0NDMiLCJpZCI6ImRmOWM5MzU1LWIwMmMtNGMxMi05MDlkLTBkYmViNzI1ZDUyYiIsImVjaGZxIjoibm9uZSIsInBhdGgiOiJcL2FwaVwvdjFcL2dwdS1zdHJlYW1cL3NvY2tldCIsIm5ldCI6IndzIiwiYWxsb3dJbnNlY3VyZSI6MCwidGxzIjoidGxzIiwidiI6IjIiLCJmcCI6ImNocm9tZSJ9
 vless://7fe363a0-c6e2-4609-9301-7a7d92ddb780@de.riotvpn.eu:8443?flow=&type=grpc&mode=multi&serviceName=grpc-yandex&security=reality&fp=chrome&sni=ads.x5.ru&pbk=sgFFdQvfeujBKh6g7N7klU_u0mKYlr800MFbko5FzUg&sid=e67fb918ed6b9ffb#%F0%9F%87%A9%F0%9F%87%AADeutschland
 vless://0eca823a-0e21-4979-aa25-cec2af97ee69@81.163.23.158:443?flow=&type=grpc&mode=gun&serviceName=grpc&security=reality&fp=chrome&sni=api-maps.yandex.ru&pbk=KVTjNm2wdY8qhZGllmxdYD2u5AhHk6lEpR8ALqPoWxc#%F0%9F%87%B7%F0%9F%87%BARussia%20(2)
+{
+  "dns" : {
+    "queryStrategy" : "UseIP",
+    "servers" : [
+      "8.8.8.8",
+      "8.8.4.4"
+    ]
+  },
+  "inbounds" : [
+    {
+      "listen" : "127.0.0.1",
+      "port" : 10808,
+      "protocol" : "socks",
+      "settings" : {
+        "auth" : "noauth",
+        "udp" : true
+      },
+      "sniffing" : {
+        "destOverride" : [
+          "http",
+          "tls",
+          "quic"
+        ],
+        "enabled" : true,
+        "routeOnly" : false
+      },
+      "tag" : "socks"
+    },
+    {
+      "listen" : "127.0.0.1",
+      "port" : 10809,
+      "protocol" : "http",
+      "settings" : {
+        "allowTransparent" : false,
+        "auth" : "noauth"
+      },
+      "sniffing" : {
+        "destOverride" : [
+          "http",
+          "tls",
+          "quic"
+        ],
+        "enabled" : true,
+        "routeOnly" : false
+      },
+      "tag" : "http"
+    }
+  ],
+  "log" : {
+    "access" : "\/private\/var\/mobile\/Containers\/Shared\/AppGroup\/FA219064-691F-4A90-A4C0-32D547E904C4\/Library\/Application Support\/Xray\/logs\/access.log",
+    "dnsLog" : true,
+    "loglevel" : "Warning"
+  },
+  "outbounds" : [
+    {
+      "fragment" : {
+        "interval" : "10-20",
+        "length" : "50-100",
+        "packets" : "1-3"
+      },
+      "protocol" : "vless",
+      "settings" : {
+        "vnext" : [
+          {
+            "address" : "ask.chatgptx.org",
+            "port" : 34241,
+            "users" : [
+              {
+                "encryption" : "none",
+                "flow" : "",
+                "id" : "d3375524-0a53-45f5-8808-7ec88fa635cd"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings" : {
+        "grpcSettings" : {
+          "authority" : "",
+          "mode" : false,
+          "serviceName" : "auth"
+        },
+        "network" : "grpc",
+        "realitySettings" : {
+          "fingerprint" : "safari",
+          "publicKey" : "a1qesGFByMzRKYFWmuEKmJxA9O-DNdow7whpInbs_mU",
+          "serverName" : "deepl.com",
+          "shortId" : "0d45920ed62ab8c3"
+        },
+        "security" : "reality"
+      },
+      "tag" : "proxy"
+    },
+    {
+      "protocol" : "freedom",
+      "tag" : "direct"
+    },
+    {
+      "protocol" : "blackhole",
+      "tag" : "block"
+    }
+  ],
+  "remarks" : "Estonia",
+  "routing" : {
+    "domainMatcher" : "hybrid",
+    "domainStrategy" : "IPIfNonMatch",
+    "rules" : [
+      {
+        "domain" : [
+          "oneme.ru",
+          "max.ru"
+        ],
+        "outboundTag" : "block",
+        "type" : "field"
+      },
+      {
+        "outboundTag" : "direct",
+        "protocol" : [
+          "bittorrent"
+        ],
+        "type" : "field"
+      },
+      {
+        "domain" : [
+          "avito.st",
+          "domain:yandex.com",
+          "domain:yandex.net",
+          "regexp:.*\\.ru$",
+          "regexp:.*\\.xn--p1ai$",
+          "regexp:.*\\.xn--p1acf$",
+          "regexp:.*\\.xn--p1ag$"
+        ],
+        "outboundTag" : "direct",
+        "type" : "field"
+      }
+    ]
+  }
+}
